@@ -1,33 +1,25 @@
-import { Injectable } from '@angular/core';
-import {WeatherService} from "./weather.service";
+import { Injectable } from "@angular/core";
+import { ListStorageService } from "./storage/list-storage.service";
 
-export const LOCATIONS : string = "locations";
+export const LOCATIONS_STORAGE_KEY: string = "locations";
 
 @Injectable()
 export class LocationService {
+  constructor(private listStorage: ListStorageService) {}
 
-  locations : string[] = [];
-
-  constructor(private weatherService : WeatherService) {
-    let locString = localStorage.getItem(LOCATIONS);
-    if (locString)
-      this.locations = JSON.parse(locString);
-    for (let loc of this.locations)
-      this.weatherService.addCurrentConditions(loc);
-  }
-
-  addLocation(zipcode : string) {
-    this.locations.push(zipcode);
-    localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
-    this.weatherService.addCurrentConditions(zipcode);
-  }
-
-  removeLocation(zipcode : string) {
-    let index = this.locations.indexOf(zipcode);
-    if (index !== -1){
-      this.locations.splice(index, 1);
-      localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
-      this.weatherService.removeCurrentConditions(zipcode);
+  addLocation(zipcode: string) {
+    if (!this.hasLocation(zipcode)) {
+      this.listStorage.addValue(LOCATIONS_STORAGE_KEY, zipcode);
     }
+  }
+
+  removeLocation(zipcode: string) {
+    if (this.hasLocation(zipcode)) {
+      this.listStorage.removeValue(LOCATIONS_STORAGE_KEY, zipcode);
+    }
+  }
+
+  hasLocation(zipcode: string): boolean {
+    return this.listStorage.hasValue(LOCATIONS_STORAGE_KEY, zipcode);
   }
 }
