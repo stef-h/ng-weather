@@ -1,5 +1,3 @@
-import { Injectable } from "@angular/core";
-
 /**
  * A service for storing and retrieving key-value pairs.
  *
@@ -7,7 +5,6 @@ import { Injectable } from "@angular/core";
  * how or where the data is stored, or for how long the data
  * is available.
  */
-@Injectable()
 export abstract class StorageService {
   abstract get(key: string): string | null;
   abstract set(key: string, value: string): void;

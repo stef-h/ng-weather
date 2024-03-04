@@ -1,8 +1,10 @@
+import { Injectable } from "@angular/core";
 import { StorageService } from "./storage.service";
 
 /**
  * An implementation of StorageService using non-persistent memory.
  */
+@Injectable()
 export class MapStorageService extends StorageService {
   private map: Map<string, string> = new Map();
 

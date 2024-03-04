@@ -1,8 +1,10 @@
+import { Injectable } from "@angular/core";
 import { StorageService } from "./storage.service";
 
 /**
  * An implementation of StorageService using the browser's localStorage API.
  */
+@Injectable()
 export class LocalStorageService extends StorageService {
   get(key: string): string | null {
     return localStorage.getItem(key);
