@@ -3,7 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-import { CACHE_HTTP_INTERCEPTOR_CONFIGS } from "app/cache/cache-interceptor";
+import { CACHE_HTTP_INTERCEPTOR_CONFIGS } from "app/cache/http/cache-http-interceptor";
 import { LogLevel } from "app/logging.service";
 import { WeatherService } from "app/weather.service";
 
@@ -24,5 +24,5 @@ export const environment = {
         maxAgeInMilliseconds: TWENTY_SECONDS_IN_MILLISECONDS,
       },
     ],
-  }
+  },
 };

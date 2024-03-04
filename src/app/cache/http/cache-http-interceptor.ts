@@ -9,8 +9,8 @@ import {
 
 import { Observable, of } from "rxjs";
 import { tap } from "rxjs/operators";
-import { CacheHttpInterceptorConfig } from "./cache-config.type";
-import { CacheService } from "./cache.service";
+import { CacheHttpInterceptorConfig } from "./cache-http-interceptor-config.type";
+import { CacheService } from "../cache.service";
 
 export const CACHE_HTTP_INTERCEPTOR_CONFIGS = new InjectionToken<
   CacheHttpInterceptorConfig[]

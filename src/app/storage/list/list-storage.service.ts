@@ -5,7 +5,7 @@ import {
   ListStorageEvent,
 } from "./list-storage-event.type";
 import { filter } from "rxjs/operators";
-import { StorageService } from "./storage.service";
+import { StorageService } from "../storage.service";
 
 /**
  * A service for storing and updating lists of strings. The lists are identified by distinct keys.

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ListStorageService } from "./storage/list-storage.service";
+import { ListStorageService } from "./storage/list/list-storage.service";
 
 export const LOCATIONS_STORAGE_KEY: string = "locations";
 

@@ -6,8 +6,8 @@ import { CurrentConditions } from "./current-conditions/current-conditions.type"
 import { ConditionsAndZip } from "./conditions-and-zip.type";
 import { Forecast } from "./forecasts-list/forecast.type";
 import { LOCATIONS_STORAGE_KEY } from "./location.service";
-import { ListStorageEventType } from "./storage/list-storage-event.type";
-import { ListStorageService } from "./storage/list-storage.service";
+import { ListStorageEventType } from "./storage/list/list-storage-event.type";
+import { ListStorageService } from "./storage/list/list-storage.service";
 
 @Injectable()
 export class WeatherService implements OnDestroy {

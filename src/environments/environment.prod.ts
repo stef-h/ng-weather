@@ -1,4 +1,4 @@
-import { CACHE_HTTP_INTERCEPTOR_CONFIGS } from "app/cache/cache-interceptor";
+import { CACHE_HTTP_INTERCEPTOR_CONFIGS } from "app/cache/http/cache-http-interceptor";
 import { LogLevel } from "app/logging.service";
 import { WeatherService } from "app/weather.service";
 
