@@ -7,6 +7,7 @@ import { CACHE_HTTP_INTERCEPTOR_CONFIGS } from "app/cache/http/cache-http-interc
 import { LogLevel } from "app/logging.service";
 import { WeatherService } from "app/weather.service";
 
+const TWO_HOURS_IN_MILLISECONDS: number = 2 * 60 * 60 * 1000;
 const TWENTY_SECONDS_IN_MILLISECONDS: number = 20 * 1000;
 
 export const environment = {
@@ -17,11 +18,11 @@ export const environment = {
     useValue: [
       {
         urlPrefix: WeatherService.URL_WEATHER,
-        ttlInMilliseconds: TWENTY_SECONDS_IN_MILLISECONDS,
+        ttlInMilliseconds: TWO_HOURS_IN_MILLISECONDS,
       },
       {
         urlPrefix: WeatherService.URL_DAILY_FORECAST,
-        ttlInMilliseconds: TWENTY_SECONDS_IN_MILLISECONDS,
+        ttlInMilliseconds: TWO_HOURS_IN_MILLISECONDS,
       },
     ],
   },
