@@ -1,4 +1,5 @@
 export interface CacheEntry {
+  key: string;
   value: string;
-  timestamp: number;
+  maxAgeInMilliseconds: number;
 }

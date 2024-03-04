@@ -32,7 +32,7 @@ export class CacheHttpInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // Check if the request is cacheable
+    // Check if the request is cachable
     // 1. If not a GET request, do not cache
     if (req.method !== "GET") {
       return next.handle(req);
@@ -46,10 +46,7 @@ export class CacheHttpInterceptor implements HttpInterceptor {
     }
 
     // Check if requested url is in cache
-    const cachedResponse = this.cache.get(
-      req.url,
-      cacheConfig.maxAgeInMilliseconds
-    );
+    const cachedResponse = this.cache.get(req.url);
     if (cachedResponse) {
       const httpResponse = new HttpResponse({
         body: JSON.parse(cachedResponse).body,
@@ -62,7 +59,11 @@ export class CacheHttpInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap((response) => {
         if (response instanceof HttpResponse) {
-          this.cache.set(req.url, JSON.stringify(response));
+          this.cache.set(
+            req.url,
+            JSON.stringify(response),
+            cacheConfig.ttlInMilliseconds
+          );
         }
       })
     );

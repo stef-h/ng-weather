@@ -12,11 +12,11 @@ export const environment = {
     useValue: [
       {
         urlPrefix: WeatherService.URL_WEATHER,
-        maxAgeInMilliseconds: TWO_HOURS_IN_MILLISECONDS,
+        ttlInMilliseconds: TWO_HOURS_IN_MILLISECONDS,
       },
       {
         urlPrefix: WeatherService.URL_DAILY_FORECAST,
-        maxAgeInMilliseconds: TWO_HOURS_IN_MILLISECONDS,
+        ttlInMilliseconds: TWO_HOURS_IN_MILLISECONDS,
       },
     ],
   },
