@@ -35,27 +35,31 @@ export class ListStorageService {
     return this.getValues(key).indexOf(value) !== -1;
   }
 
-  addValue(key: string, value: string): string[] {
+  addValues(key: string, ...values: string[]): string[] {
     const currentValues = this.getValues(key);
-    const newValues = [...currentValues, value];
+    const newValues = [...currentValues, ...values];
     this.storage.set(key, JSON.stringify(newValues));
-    this.emit(ListStorageEventType.ADD, key, value);
+    this.emit(ListStorageEventType.ADD, key, values);
     return newValues;
   }
 
-  removeValue(key: string, value: string): string[] {
+  removeValues(key: string, ...values: string[]): string[] {
     const currentValues = this.getValues(key);
-    const newValues = currentValues.filter((v) => v !== value);
+    const newValues = currentValues.filter((v) => values.indexOf(v) === -1);
     this.storage.set(key, JSON.stringify(newValues));
-    this.emit(ListStorageEventType.REMOVE, key, value);
+    this.emit(ListStorageEventType.REMOVE, key, values);
     return newValues;
   }
 
-  private emit(type: ListStorageEventType, key: string, value: string): void {
+  private emit(
+    type: ListStorageEventType,
+    key: string,
+    values: string[]
+  ): void {
     this.listStorageEventSubject$.next({
       type: type,
       key: key,
-      value: value,
+      values: values,
     });
   }
 }

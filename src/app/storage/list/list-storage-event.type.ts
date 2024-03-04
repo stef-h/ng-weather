@@ -6,5 +6,5 @@ export enum ListStorageEventType {
 export interface ListStorageEvent {
   type: ListStorageEventType;
   key: string;
-  value: string;
+  values: string[];
 }

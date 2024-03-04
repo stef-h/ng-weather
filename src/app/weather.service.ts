@@ -31,10 +31,12 @@ export class WeatherService implements OnDestroy {
       .subscribe((event) => {
         switch (event.type) {
           case ListStorageEventType.ADD:
-            this.addCurrentConditions(event.value);
+            event.values.forEach((value) => this.addCurrentConditions(value));
             break;
           case ListStorageEventType.REMOVE:
-            this.removeCurrentConditions(event.value);
+            event.values.forEach((value) =>
+              this.removeCurrentConditions(value)
+            );
             break;
         }
       });

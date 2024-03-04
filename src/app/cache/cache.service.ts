@@ -1,7 +1,7 @@
 import { Inject, Injectable, InjectionToken, Optional } from "@angular/core";
 import { CacheEntry } from "./cache-entry.type";
-import { StorageService } from "app/storage/storage.service";
 import { LoggingService } from "app/logging.service";
+import { ListStorageService } from "app/storage/list/list-storage.service";
 
 export const CACHE_STORAGE_KEY = new InjectionToken<string>(
   "Cache storage key token",
@@ -37,16 +37,14 @@ export class CacheService {
   constructor(
     @Inject(CACHE_STORAGE_KEY) private cacheStorageKey: string,
     @Inject(TIMESTAMP_SERVICE) private timestampService: () => number,
-    private storage: StorageService,
+    private listStorage: ListStorageService,
     @Optional() private logger: LoggingService
   ) {
-    const cacheString = this.storage.get(this.cacheStorageKey);
+    const cacheEntriesString = this.listStorage.getValues(this.cacheStorageKey);
 
-    if (cacheString) {
-      const cacheEntries: CacheEntry[] = JSON.parse(cacheString);
-      for (const entry of cacheEntries) {
-        this.cache.set(entry.key, entry);
-      }
+    for (const cacheEntry of cacheEntriesString) {
+      const entry: CacheEntry = JSON.parse(cacheEntry);
+      this.cache.set(entry.key, entry);
     }
   }
 
@@ -57,7 +55,8 @@ export class CacheService {
       maxAgeInMilliseconds: ttlInMilliseconds + this.timestampService(),
     };
     this.cache.set(key, entry);
-    this.flush();
+    this.listStorage.addValues(this.cacheStorageKey, JSON.stringify(entry));
+    this.removeOutdated();
   }
 
   get(key: string): string | null {
@@ -73,7 +72,7 @@ export class CacheService {
       this.logger?.debug(
         `[${CacheService.name}] Cache miss (outdated): ${key}`
       );
-      this.flush();
+      this.removeOutdated();
       return null;
     }
 
@@ -81,22 +80,21 @@ export class CacheService {
     return entry.value;
   }
 
-  private flush(): void {
+  private removeOutdated(): void {
     // Remove outdated entries
     const now = this.timestampService();
+    const outdatedEntries: string[] = [];
     this.cache.forEach((entry, key) => {
       if (entry.maxAgeInMilliseconds < now) {
         this.logger?.debug(
           `[${CacheService.name}] Removing outdated entry: ${entry.key}`
         );
         this.cache.delete(key);
+        outdatedEntries.push(JSON.stringify(entry));
       }
     });
 
     // Save to storage
-    this.storage.set(
-      this.cacheStorageKey,
-      JSON.stringify([...this.cache.values()])
-    );
+    this.listStorage.removeValues(this.cacheStorageKey, ...outdatedEntries);
   }
 }

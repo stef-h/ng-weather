@@ -9,13 +9,13 @@ export class LocationService {
 
   addLocation(zipcode: string) {
     if (!this.hasLocation(zipcode)) {
-      this.listStorage.addValue(LOCATIONS_STORAGE_KEY, zipcode);
+      this.listStorage.addValues(LOCATIONS_STORAGE_KEY, zipcode);
     }
   }
 
   removeLocation(zipcode: string) {
     if (this.hasLocation(zipcode)) {
-      this.listStorage.removeValue(LOCATIONS_STORAGE_KEY, zipcode);
+      this.listStorage.removeValues(LOCATIONS_STORAGE_KEY, zipcode);
     }
   }
 
