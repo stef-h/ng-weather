@@ -1,0 +1,25 @@
+@if (tabs.length > 0) {
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            @for (tab of tabs; track tab.id;) {
+            <li>
+                <div class="btn-group">
+                    <button type="button" (click)="selectedTab = tab" class="btn btn-default"
+                        [class]="tab === selectedTab ? 'btn-primary' : 'btn-default'">
+                        <ng-container [ngTemplateOutlet]="tab?.header.templateRef"></ng-container>
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="closeTab(tab)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="sr-only">Remove location</span>
+                    </button>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
+    <div class="panel-body">
+        <ng-container [ngTemplateOutlet]="selectedTab?.content.templateRef"></ng-container>
+    </div>
+</div>
+}

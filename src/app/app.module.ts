@@ -15,14 +15,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
 import { ListStorageService } from "./storage/list-storage.service";
-import {
-  CACHE_HTTP_INTERCEPTOR_CONFIGS,
-  CacheHttpInterceptor,
-} from "./cache/cache-interceptor";
+import { CacheHttpInterceptor } from "./cache/cache-interceptor";
 import { CacheService } from "./cache/cache.service";
 import { LocalStorageService } from "./storage/local-storage.service";
 import { LOG_LEVEL, LogLevel, LoggingService } from "./logging.service";
 import { StorageService } from "./storage/storage.service";
+import { TabModule } from "./tab/tab.module";
 
 @NgModule({
   declarations: [
@@ -41,6 +39,7 @@ import { StorageService } from "./storage/storage.service";
     ServiceWorkerModule.register("/ngsw-worker.js", {
       enabled: environment.production,
     }),
+    TabModule,
   ],
   providers: [
     {
