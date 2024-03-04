@@ -6,13 +6,14 @@ import { CurrentConditions } from "./current-conditions/current-conditions.type"
 import { ConditionsAndZip } from "./conditions-and-zip.type";
 import { Forecast } from "./forecasts-list/forecast.type";
 import { LOCATIONS_STORAGE_KEY } from "./location.service";
-import { ListStorageEventType } from "./storage/list-event.type";
+import { ListStorageEventType } from "./storage/list-storage-event.type";
 import { ListStorageService } from "./storage/list-storage.service";
 
 @Injectable()
 export class WeatherService implements OnDestroy {
   static URL_WEATHER = "https://api.openweathermap.org/data/2.5/weather";
-  static URL_DAILY_FORECAST = "https://api.openweathermap.org/data/2.5/forecast/daily";
+  static URL_DAILY_FORECAST =
+    "https://api.openweathermap.org/data/2.5/forecast/daily";
   static APPID = "5a4b2d457ecbef9eb2a71e480b947604";
   static ICON_URL =
     "https://raw.githubusercontent.com/udacity/Sunshine-Version-2/sunshine_master/app/src/main/res/drawable-hdpi/";

@@ -1,6 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { ListStorageEventType, ListStorageEvent } from "./list-event.type";
+import {
+  ListStorageEventType,
+  ListStorageEvent,
+} from "./list-storage-event.type";
 import { filter } from "rxjs/operators";
 import { StorageService } from "./storage.service";
 
@@ -10,9 +13,8 @@ import { StorageService } from "./storage.service";
  */
 @Injectable()
 export class ListStorageService {
+  private storage = inject(StorageService);
   private listStorageEventSubject$ = new Subject<ListStorageEvent>();
-
-  constructor(private storage: StorageService) {}
 
   /**
    * Returns an observable that fires when items are added or removed
